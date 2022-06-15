@@ -23,9 +23,13 @@ class Tile
 end
 
 def make_board
-  i = 1
-  9.times do
-    Tile.new("t#{i.to_s}")
-    i += 1
-  end
+  t1 = Tile.new("t1")
+  t2 = Tile.new("t2")
+  t3 = Tile.new("t3")
+  t4 = Tile.new("t4")
+  t5 = Tile.new("t5")
+  t6 = Tile.new("t6")
+  t7 = Tile.new("t7")
+  t8 = Tile.new("t8")
+  t9 =Tile.new("t9")
 end
