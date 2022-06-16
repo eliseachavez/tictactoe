@@ -33,11 +33,22 @@ class Game
   def play
     selection = make_selection
     if @p1_turn
-      @board[selection] = 'x'
-      @p1_turn = false
+      # 1st, is something already there?
+      if is_taken?(selection)
+        puts "That tile is taken; choose another."
+        selection = make_selection
+      else
+        @board[selection] = 'x'
+        @p1_turn = false
+      end
     else
-      @board[selection] = 'o'
-      @p1_turn = true # p2 is done, is now p1s turn
+      if is_taken?(selection)
+        puts "That tile is taken; choose another."
+        selection = make_selection
+      else
+        @board[selection] = 'o'
+        @p1_turn = true # p2 is done, is now p1s turn
+      end
     end
     # now check to see if there's a hit
     if is_game_over?
@@ -50,9 +61,14 @@ class Game
   private
 
   def make_selection # mark is a 'x' or 'o'
-    puts "Here is the current board:"
+    puts "Here is the current board."
     print_board
-    puts "Choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
+    if @p1_turn
+      puts "Player 1, choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
+    else
+      puts "Player 2, choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
+    end
+
     begin
       selection = gets.chomp.to_i
     rescue StandardError=>e
@@ -86,10 +102,10 @@ class Game
       end
     end
 
-    if @@win_sequences.include?(p1_tiles)
+    if @@WIN_SEQUENCES.include?(p1_tiles)
       @winner = "Player 1"
       true
-    elsif @@win_sequences.include(p2_tiles)
+    elsif @@WIN_SEQUENCES.include?(p2_tiles)
       @winner = "Player 2"
       true
     else
