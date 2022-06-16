@@ -52,13 +52,41 @@ class Game
     end
     # now check to see if there's a hit
     if is_game_over?
+      puts "You won!"
       @over = true
+    elsif is_draw?
+      @over = false
     else
       @over = false
     end
   end
 
   private
+
+  def is_draw?
+    x_count = 0
+    o_count = 0
+    @board.each_index do |index|
+      if @board[index] == 'x'
+        x_count += 1
+      elsif @board[index] == 'o'
+        o_count += 1
+      end
+    end
+    if x_count == o_count
+      true
+    else
+      false
+    end
+  end
+
+  def is_taken?(selection)
+    if @board[selection] == 'x' || @board[selection] == 'o'
+      true
+    else
+      false
+    end
+  end
 
   def make_selection # mark is a 'x' or 'o'
     puts "Here is the current board."
@@ -76,6 +104,8 @@ class Game
     else
       puts "You chose #{selection}"
       selection -= 1 # so that it's zero indexed
+      puts "but the index you chose is #{selection}"
+      selection
     end
   end
 
