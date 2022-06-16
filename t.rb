@@ -6,14 +6,14 @@
 class Game
   # true for all game instances
   @@win_sequences = [
-    ["nw-nc-ne"], ["ne-nc-nw"],
-    ["wc-c-ec"], ["ec-c-wc"],
-    ["sw-sc-se"], ["se-sc-sw"],
-    ["nw-c-se"], ["se-c-nw"],
-    ["nc-c-sc"], ["sc-c-nc"],
-    ["nw-wc-sw"], ["sw-wc-nw"],
-    ["ne-ec-se"], ["se-ec-ne"],
-    ["sw-c-ne"], ["ne-c-sw"]
+    ["012"], ["210"],
+    ["345"], ["543"],
+    ["678"], ["876"],
+    ["048"], ["840"],
+    ["147"], ["741"],
+    ["036"], ["630"],
+    ["258"], ["852"],
+    ["642"], ["246"]
   ]
   # individual game specific
   attr_accessor @over = false
@@ -71,6 +71,16 @@ class Game
 
   def is_game_over?
     #compare win sequences to x or o
+    @@win_sequences = [
+      ["012"], ["210"],
+      ["345"], ["543"],
+      ["678"], ["876"],
+      ["048"], ["840"],
+      ["147"], ["741"],
+      ["036"], ["630"],
+      ["258"], ["852"],
+      ["642"], ["246"]
+    ]
   end
 end
 
