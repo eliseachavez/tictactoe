@@ -33,10 +33,11 @@ class Game
   def play
     selection = make_selection
     if @p1_turn
-      # 1st, is something already there?
       if is_taken?(selection)
         puts "That tile is taken; choose another."
         selection = make_selection
+      elsif all_tiles_taken?#board is full, no options left
+        puts "You have run out of options and the game is over."
       else
         @board[selection] = 'x'
         @p1_turn = false
@@ -62,6 +63,22 @@ class Game
   end
 
   private
+
+  def all_tiles_taken?
+    nil_count = 0
+    @board.each_index do |index|
+      if @board[index] = ' '
+        nil_count += 1
+      end
+    end
+
+    if nil_count > 0
+      false
+    else
+      true
+    end
+
+  end
 
   def is_draw?
     x_count = 0
@@ -103,6 +120,7 @@ class Game
       puts "Error: #{e}"
     else
       puts "You chose #{selection}"
+      print_board
       selection -= 1 # so that it's zero indexed
       puts "but the index you chose is #{selection}"
       selection
