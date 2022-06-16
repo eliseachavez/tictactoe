@@ -15,13 +15,13 @@ class Game
     "258", "852",
     "642", "246"
   ]
-  # individual game specific
-  @over = false
-  @board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
-  @p1_turn = true
-  @winner = nil
 
   def initialize
+    # individual game specific
+    @over = false
+    @board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    @p1_turn = true
+    @winner = nil
    puts "Welcome to tic tac toe. This is a 2 player game. "
     until @over do
       play
