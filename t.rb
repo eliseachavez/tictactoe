@@ -7,6 +7,7 @@
 # have a hash, with a list for each possible win sequence
 # any time a player makes a move, check for win sequences in the existing sequence.
 $turn = true
+$over = false
 win_sequences = [[NWNCNE],[],[],[],[],[],[],[]]
 class Tile
   @name, @neighbors
@@ -41,6 +42,11 @@ def prompt_turn
   else
     turn = !turn
     puts "Player 2, enter the tile of your choice"
-
   end
+end
+
+# MAIN #############
+
+until over do
+  prompt_turn
 end
