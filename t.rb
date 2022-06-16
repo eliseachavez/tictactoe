@@ -54,14 +54,14 @@ class Game
     print_board
     puts "Choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
     begin
-      selection = gets.chomp
+      selection = gets.chomp.to_i
     rescue StandardError=>e
       puts "Error: #{e}"
     else
       puts "You chose #{selection}"
       selection -= 1 # so that it's zero indexed
     end
-  end # end of make_selection method
+  end
 
   def print_board
     @board.each_index do |index|
@@ -70,9 +70,9 @@ class Game
       print " ]"
       if index == 2 || index == 5 || index == 8
         puts
-      end # end of if
-    end # end of do loop
-  end # end of print_board method
+      end
+    end
+  end
 
   def is_game_over?
     # create list of tile sequences each player has
@@ -83,8 +83,8 @@ class Game
         p1_tiles += index.to_s
       elsif @board[index] == 'o'
         p2_tiles += index.to_s
-      end # end of branches
-    end # end of do loop
+      end
+    end
 
     if @@win_sequences.include?(p1_tiles)
       @winner = "Player 1"
@@ -94,9 +94,9 @@ class Game
       true
     else
       false
-    end # end of win_sequences.include? method
-  end # enf of is_over? method
-end # end of class Game
+    end
+  end
+end
 
 # MAIN #############
 game = Game.new
