@@ -6,7 +6,7 @@
 # How this game logic will work:
 # have a hash, with a list for each possible win sequence
 # any time a player makes a move, check for win sequences in the existing sequence.
-
+$turn = true
 win_sequences = [[NWNCNE],[],[],[],[],[],[],[]]
 class Tile
   @name, @neighbors
@@ -32,4 +32,15 @@ def make_board
   t7 = Tile.new("t7")
   t8 = Tile.new("t8")
   t9 =Tile.new("t9")
+end
+
+def prompt_turn
+  if $turn == true
+    turn = !turn
+    puts "Player 1, enter the tile of your choice"
+  else
+    turn = !turn
+    puts "Player 2, enter the tile of your choice"
+
+  end
 end
