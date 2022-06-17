@@ -37,7 +37,7 @@ class Game
     if all_tiles_taken?
       restart
     elsif is_chosen_tile_taken?(selection)
-      puts "chosen tile is taken"
+      puts "Chosen tile is taken."
       play
     else # tile is available
       select(selection)
@@ -128,8 +128,6 @@ class Game
       if in_range?(selection)
         puts "You chose #{selection}"
         selection -= 1 # so that it's zero indexed
-        puts "but the index you chose is #{selection}"
-        selection
       else
         puts "Number not in range. try again"
         data_intake
