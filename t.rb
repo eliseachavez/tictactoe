@@ -190,7 +190,7 @@ class Game
       end
     end
     # win sequences is array of strings
-    Game::WIN_SEQUENCES.each_index do |sequence|
+    Game::WIN_SEQUENCES.each do |sequence|
       if p1_tiles.include?(sequence)
         @winner = "Player 1"
       elsif p2_tiles.include?(sequence)
