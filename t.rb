@@ -35,8 +35,6 @@ class Game
     selection = data_intake
 
     if all_tiles_taken?
-      puts "all tiles are taken"
-      puts "The game is a draw. Game will now be restarted"
       restart
     elsif is_chosen_tile_taken?(selection)
       puts "chosen tile is taken"
@@ -102,6 +100,8 @@ class Game
     if nil_count > 0
       false
     else
+      puts "All tiles are taken."
+      puts "The game is a draw. Game will now be restarted."
       true
     end
 
@@ -117,7 +117,8 @@ class Game
 
   def data_intake # mark is a 'x' or 'o'
     print_board
-    puts "#{@current_player}, choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
+    puts "#{@current_player}, choose a tile. They are numbered 1 - 9,"\
+    " going left to right and top to bottom."
 
     begin
       selection = gets.chomp.to_i
@@ -210,6 +211,8 @@ class Game
 
     if @winner == "Player 1" || @winner == "Player 2"
       true
+    elsif all_tiles_taken? # is a draw
+      puts
     else
       false
     end
