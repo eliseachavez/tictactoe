@@ -188,16 +188,41 @@ class Game
     tiles
   end
 
+  def has_sequence?(tiles, sequence)
+    #pseudocode for this logic:
+    # Matching 048 in 0348 (it should do this)
+    #   do tiles 0348 have a char 0? yes
+    #   do tiles 0348 have a char 3? no
+    #   do tiles 0348 have a char 4? yes
+    #   do tiles 0348 have a char 8? yes
+    # we have a least 3 hits, so we have a winning sequence
+    match_count = 0
+    sequence.each_char do |char|
+      if tiles.include?(char)
+        match_count += 1
+      end
+    end
+
+    if match_count == 3
+      true
+    else
+      false
+    end
+
+  end
+
   def is_game_over?
     # create list of tile sequences each player has
     p1_tiles = create_player_sequence('x')
     p2_tiles = create_player_sequence('o')
 
     # win sequences is array of strings
+    # NEED TO CHECK FOR NON SEQUENTIAL MATCHES!
+    # e.g, 0348 should match for 048
     Game::WIN_SEQUENCES.each do |sequence|
-      if p1_tiles.include?(sequence)
+      if has_sequence?(p1_tiles, sequence)
         @winner = "Player 1"
-      elsif p2_tiles.include?(sequence)
+      elsif has_sequence?(p2_tiles, sequence)
         @winner = "Player 2"
       end
     end
