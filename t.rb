@@ -19,7 +19,7 @@ class Game
   def initialize
     # individual game specific
     @over = false
-    @board = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+    @board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
     @p1_turn = true
     @winner = nil
     @current_player = "Player 1"
@@ -34,13 +34,13 @@ class Game
   def play
     selection = data_intake
 
-    if is_chosen_tile_taken?(selection)
-      puts "chosen tile is taken"
-      play
-    elsif are_all_tiles_taken?(selection)
-      puts "no tiles are taken"
+    if all_tiles_taken?
+      puts "all tiles are taken"
       puts "The game is a draw. Game will now be restarted"
       restart
+    elsif is_chosen_tile_taken?(selection)
+      puts "chosen tile is taken"
+      play
     else # tile is available
       select(selection)
     end
@@ -63,7 +63,7 @@ class Game
     if is_chosen_tile_taken?(selection)
       puts "That tile is taken; choose another."
       selection = data_intake
-    elsif all_tiles_taken?#board is full, no options left
+    elsif all_tiles_taken? # board is full, no options left
       puts "You have run out of options and the game is over."
     else
     end
@@ -96,7 +96,7 @@ class Game
   def all_tiles_taken?
     nil_count = 0
     @board.each_index do |index|
-      if @board[index] = ' '
+      if @board[index] == ' '
         nil_count += 1
       end
     end
@@ -135,6 +135,7 @@ class Game
   end
 
   def data_intake # mark is a 'x' or 'o'
+    print_board
     puts "#{@current_player}, choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
 
     begin
@@ -144,7 +145,6 @@ class Game
     else
       if in_range?(selection)
         puts "You chose #{selection}"
-        print_board
         selection -= 1 # so that it's zero indexed
         puts "but the index you chose is #{selection}"
         selection
