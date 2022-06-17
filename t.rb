@@ -178,17 +178,21 @@ class Game
     end
   end
 
-  def is_game_over?
-    # create list of tile sequences each player has
-    p1_tiles = String.new("")
-    p2_tiles = String.new("")
+  def create_player_sequence(mark)
+    tiles = String.new('')
     @board.each_index do |index|
-      if @board[index] == 'x'
-        p1_tiles += index.to_s
-      elsif @board[index] == 'o'
-        p2_tiles += index.to_s
+      if @board[index] == mark
+        tiles += index.to_s
       end
     end
+    tiles
+  end
+
+  def is_game_over?
+    # create list of tile sequences each player has
+    p1_tiles = create_player_sequence('x')
+    p2_tiles = create_player_sequence('o')
+
     # win sequences is array of strings
     Game::WIN_SEQUENCES.each do |sequence|
       if p1_tiles.include?(sequence)
