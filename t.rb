@@ -47,7 +47,7 @@ class Game
 
     # now check to see if there's a hit
     if is_game_over?
-      puts "You won!"
+      puts "#{@winner}, you won!"
       @over = true
     elsif is_draw?
       @over = false
@@ -189,12 +189,16 @@ class Game
         p2_tiles += index.to_s
       end
     end
+    # win sequences is array of strings
+    Game::WIN_SEQUENCES.each_index do |sequence|
+      if p1_tiles.include?(sequence)
+        @winner = "Player 1"
+      elsif p2_tiles.include?(sequence)
+        @winner = "Player 2"
+      end
+    end
 
-    if Game::WIN_SEQUENCES.include?(p1_tiles)
-      @winner = "Player 1"
-      true
-    elsif Game::WIN_SEQUENCES.include?(p2_tiles)
-      @winner = "Player 2"
+    if @winner == "Player 1" || @winner == "Player 2"
       true
     else
       false
