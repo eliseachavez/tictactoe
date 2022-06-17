@@ -49,8 +49,6 @@ class Game
     if is_game_over?
       puts "#{@winner}, you won!"
       @over = true
-    elsif is_draw?
-      @over = false
     else
       @over = false
     end
@@ -107,23 +105,6 @@ class Game
       true
     end
 
-  end
-
-  def is_draw?
-    x_count = 0
-    o_count = 0
-    @board.each_index do |index|
-      if @board[index] == 'x'
-        x_count += 1
-      elsif @board[index] == 'o'
-        o_count += 1
-      end
-    end
-    if x_count == o_count
-      true
-    else
-      false
-    end
   end
 
   def is_chosen_tile_taken?(selection)
