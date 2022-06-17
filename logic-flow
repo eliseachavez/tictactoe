@@ -1,0 +1,9 @@
+we are starting a round. here is the board.
+
+who is the player? take a turn
+  are there ANY open spots? if not, game over, draw, ask to restart
+  is that AN open spot?
+    if not, choose something else
+    if it is, take it.
+
+now print the board

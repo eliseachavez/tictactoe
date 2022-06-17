@@ -5,7 +5,7 @@
 
 class Game
   # true for all game instances
-  @@WIN_SEQUENCES = [
+  WIN_SEQUENCES = [
     "012", "210",
     "345", "543",
     "678", "876",
@@ -19,10 +19,11 @@ class Game
   def initialize
     # individual game specific
     @over = false
-    @board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    @board = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
     @p1_turn = true
     @winner = nil
-   puts "Welcome to tic tac toe. This is a 2 player game. "
+    @current_player = "Player 1"
+    puts "Welcome to tic tac toe. This is a 2 player game. "
     until @over do
       play
     end
@@ -31,26 +32,19 @@ class Game
   public
 
   def play
-    selection = make_selection
-    if @p1_turn
-      if is_taken?(selection)
-        puts "That tile is taken; choose another."
-        selection = make_selection
-      elsif all_tiles_taken?#board is full, no options left
-        puts "You have run out of options and the game is over."
-      else
-        @board[selection] = 'x'
-        @p1_turn = false
-      end
-    else
-      if is_taken?(selection)
-        puts "That tile is taken; choose another."
-        selection = make_selection
-      else
-        @board[selection] = 'o'
-        @p1_turn = true # p2 is done, is now p1s turn
-      end
+    selection = data_intake
+
+    if is_chosen_tile_taken?(selection)
+      puts "chosen tile is taken"
+      play
+    elsif are_all_tiles_taken?(selection)
+      puts "no tiles are taken"
+      puts "The game is a draw. Game will now be restarted"
+      restart
+    else # tile is available
+      select(selection)
     end
+
     # now check to see if there's a hit
     if is_game_over?
       puts "You won!"
@@ -60,9 +54,44 @@ class Game
     else
       @over = false
     end
+
   end
 
   private
+
+  def can_we_select?(selection)
+    if is_chosen_tile_taken?(selection)
+      puts "That tile is taken; choose another."
+      selection = data_intake
+    elsif all_tiles_taken?#board is full, no options left
+      puts "You have run out of options and the game is over."
+    else
+    end
+  end
+
+  def restart
+    @over = false
+    @board = [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+    @p1_turn = true
+    @winner = nil
+    @current_player = "Player 1"
+    puts "Welcome to tic tac toe. This is a 2 player game. "
+    until @over do
+      play
+    end
+  end
+
+  def select(selection)
+    if @p1_turn
+      @board[selection] = 'x'
+      @p1_turn = false
+      @current_player = "Player 2"
+    else
+      @board[selection] = 'o'
+      @p1_turn = true
+      @current_player = "Player 1"
+    end
+  end
 
   def all_tiles_taken?
     nil_count = 0
@@ -97,7 +126,7 @@ class Game
     end
   end
 
-  def is_taken?(selection)
+  def is_chosen_tile_taken?(selection)
     if @board[selection] == 'x' || @board[selection] == 'o'
       true
     else
@@ -105,32 +134,43 @@ class Game
     end
   end
 
-  def make_selection # mark is a 'x' or 'o'
-    puts "Here is the current board."
-    print_board
-    if @p1_turn
-      puts "Player 1, choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
-    else
-      puts "Player 2, choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
-    end
+  def data_intake # mark is a 'x' or 'o'
+    puts "#{@current_player}, choose from the remaining tiles: 1, 2, 3, 4, 5, 6, 7, 8, 9"
 
     begin
       selection = gets.chomp.to_i
     rescue StandardError=>e
       puts "Error: #{e}"
     else
-      puts "You chose #{selection}"
-      print_board
-      selection -= 1 # so that it's zero indexed
-      puts "but the index you chose is #{selection}"
-      selection
+      if in_range?(selection)
+        puts "You chose #{selection}"
+        print_board
+        selection -= 1 # so that it's zero indexed
+        puts "but the index you chose is #{selection}"
+        selection
+      else
+        puts "Number not in range. try again"
+        data_intake
+      end
+    end
+  end
+
+  def in_range?(selection)
+    if (selection == 1)...(selection == 9)
+      true
+    else
+      false
     end
   end
 
   def print_board
     @board.each_index do |index|
       print "[ "
-      print @board[index]
+      if @board[index] == 'x' || @board[index] == 'o'
+        print @board[index]
+      else
+        print ' '
+      end
       print " ]"
       if index == 2 || index == 5 || index == 8
         puts
@@ -150,10 +190,10 @@ class Game
       end
     end
 
-    if @@WIN_SEQUENCES.include?(p1_tiles)
+    if Game::WIN_SEQUENCES.include?(p1_tiles)
       @winner = "Player 1"
       true
-    elsif @@WIN_SEQUENCES.include?(p2_tiles)
+    elsif Game::WIN_SEQUENCES.include?(p2_tiles)
       @winner = "Player 2"
       true
     else
