@@ -156,7 +156,7 @@ class Game
   end
 
   def in_range?(selection)
-    if (selection == 1)...(selection == 9)
+    if selection > 0 && selection < 10
       true
     else
       false
