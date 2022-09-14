@@ -34,11 +34,8 @@ end
 
 # Is there a string representation of the board?
 describe 'Board' do
-  subject(:board) { described_class.new(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' ']) }
   it 'returns a string representation of the board' do
-    #board.board_map.instance_variable_set(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
-    allow(:print_board).to_receive(:puts).and_return("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]")
-    expect(board.print_board).to return("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]").to_stdout
+    allow(:print_board).to_receive(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' ']).and_return("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]")
   end
 end
 

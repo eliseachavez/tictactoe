@@ -20,8 +20,8 @@ class Game
       642 246
     ].freeze
 
-    def initialize()
-      @board_map = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+    def initialize(map = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '] )
+      @board_map = map
     end
 
     def print_board
