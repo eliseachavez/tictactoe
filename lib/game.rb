@@ -101,8 +101,6 @@ class Game
     end
   end
 
-  private
-
   def get_selection
     @board.print_board
     puts "#{@current_player}, choose a tile. They are numbered 1 - 9,"\
@@ -133,6 +131,27 @@ class Game
       set_tile
     end
   end
+
+  def decide_winner
+    # create list of tile sequences each player has
+    p1_tiles = @board.create_player_sequence('x')
+    p2_tiles = @board.create_player_sequence('o')
+
+    find_winning_sequences(p1_tiles, p2_tiles)
+    game_over?
+  end
+
+  def game_over?
+    if @winner == 'Player 1' || @winner == 'Player 2'
+      true
+    elsif all_tiles_taken? # is a draw
+      puts
+    else
+      false
+    end
+  end
+
+  private
 
   def can_we_select?
     if @board.chosen_tile_taken?(@selection)
@@ -201,15 +220,6 @@ class Game
     match_count == 3 # will return true or false from evaluation of the condition
   end
 
-  def decide_winner
-    # create list of tile sequences each player has
-    p1_tiles = @board.create_player_sequence('x')
-    p2_tiles = @board.create_player_sequence('o')
-
-    find_winning_sequences(p1_tiles, p2_tiles)
-    game_over?
-  end
-
   def find_winning_sequences(p1_tiles, p2_tiles)
     # win sequences is array of strings
     # NEED TO CHECK FOR NON SEQUENTIAL MATCHES!
@@ -220,16 +230,6 @@ class Game
       elsif win_sequence_present?(p2_tiles, sequence)
         @winner = 'Player 2'
       end
-    end
-  end
-
-  def game_over?
-    if @winner == 'Player 1' || @winner == 'Player 2'
-      true
-    elsif all_tiles_taken? # is a draw
-      puts
-    else
-      false
     end
   end
 end
