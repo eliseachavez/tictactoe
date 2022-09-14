@@ -23,15 +23,17 @@ end
 
 # Is there a string representation of the board?
 describe 'Board' do
-  double = double(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
+  subject(:board) { described_class.new }
+  #double = double(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
   # let(:board) { double('random_number') }
   it 'returns a string representation of the board' do
     # board.set_tile_symbol(0, 'x')
     # board.set_tile_symbol(1, 'x')
     # board.set_tile_symbol(2, 'x')
+    win_tiles = ['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' ']
     test_string = "[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]"
 
-    board_string = board.print_board
+    game_outcome = game_over
     expect(board_string).to output(test_string).to_stdout
   end
 end
