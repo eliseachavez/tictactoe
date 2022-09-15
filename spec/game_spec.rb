@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-#require_relative 'main'
+require_relative '../lib/game'
+require_relative '../lib/board'
+#require '/home/lemur/ruby/tictactoe/lib/game.rb'
 
 # Can X or O be inserted at a position?
 describe 'Game' do
@@ -16,26 +18,31 @@ end
 
 # Does it accurately check if a player has won?
 describe '#find_winning_sequences' do
-let(:game_win) { Game.new }
-  subject(:board) { described_class.new }
+  let(:board) { Game::Board.new }
+  let(:game_win) { Game.new(board) }
   #double = double(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
   # let(:board) { double('random_number') }
   xit 'returns a string representation of the board' do
-    win_sequence = "[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]"
-    allow(:find_winning_sequences).to receive("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]").and_return('Player 1')
-    game_outcome =  game.game_over? # but game_over is a private method...am I supposed to stub this too?
-    expect(game_outcome).to be_game_over
-    # game.play # can't do this because play will prompt user for a selection and I need to bypass this
-    # #expect(board_string).to output(test_string).to_stdout
-    # # or
-    # game.game_over? # can't do this because game_over is a private method
+    # win_sequence = "[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]"
+    # allow(:find_winning_sequences).to receive("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]").and_return('Player 1')
+    # game_outcome =  game.game_over? # but game_over is a private method...am I supposed to stub this too?
+    # expect(game_outcome).to be_game_over
+    
   end
 end
 
 # Is there a string representation of the board?
-describe 'Board' do
-  it 'returns a string representation of the board' do
-    allow(:print_board).to_receive(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' ']).and_return("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]")
+describe 'Game' do
+  context 'when a board map exists' do
+    it 'returns a string representation of the board' do
+      # expect(board).to receive(:board_map).and_return(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
+      #game = Game.new(board)
+      #game.show_board
+      # expect(game_play.show_board).to output("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]").to_stdout
+      board = Board.new(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
+      game = Game.new(board)
+      expect(game.show_board).to output("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]").to_stdout
+    end
   end
 end
 
