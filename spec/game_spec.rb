@@ -4,17 +4,6 @@ require_relative '../lib/game'
 require_relative '../lib/board'
 #require '/home/lemur/ruby/tictactoe/lib/game.rb'
 
-# Can X or O be inserted at a position?
-describe 'Game' do
-  context 'when X is inserted at a position' do
-    xit 'returns' do
-    end
-  end
-  context 'when O is inserted at a position' do
-    xit 'returns' do
-    end
-  end
-end
 
 # Does it accurately check if a player has won?
 describe '#find_winning_sequences' do
