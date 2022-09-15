@@ -30,23 +30,3 @@ describe '#find_winning_sequences' do
     
   end
 end
-
-# Is there a string representation of the board?
-describe 'Game' do
-  context 'when a board map exists' do
-    it 'returns a string representation of the board' do
-      # expect(board).to receive(:board_map).and_return(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
-      #game = Game.new(board)
-      #game.show_board
-      # expect(game_play.show_board).to output("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]").to_stdout
-      board = Board.new(['x', 'x', 'x', ' ', ' ', ' ', ' ', ' ', ' '])
-      game = Game.new(board)
-      expect(game.show_board).to output("[x][x][x]\n[ ][ ][ ]\n[ ][ ][ ]").to_stdout
-    end
-  end
-end
-
-describe 'Board' do
-  xit 'returns' do
-  end
-end
