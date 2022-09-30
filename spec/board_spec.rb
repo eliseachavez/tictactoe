@@ -12,9 +12,7 @@ end
 
 describe Board do
   subject(:board) { described_class.new }
-# Can X or O be inserted at a position?
-  context 'does not allow a symbol to be inserted at a tile that is already occupied' do
-  end
+  # Can X or O be inserted at a position?
   context 'when x is inserted at a position' do
     it 'returns x at that position' do
       expect(board.set_tile_symbol(1, 'x')).to eq(board.get_tile_symbol(1, 'x'))
@@ -24,10 +22,6 @@ describe Board do
     it 'returns' do
       expect(board.set_tile_symbol(5, 'o')).to eq(board.get_tile_symbol(5, 'o'))
     end
-  end
-  context 'Does not allow a foreign symbol to be inserted' do
-  end
-  context 'Does not allow an invalid index to be used' do
   end
 end
 
